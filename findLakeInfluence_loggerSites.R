@@ -52,7 +52,9 @@ for(i in 2:length(unique(lakeData_redundant$lakeCat))){
 }
 
 
-execGRASS("v.in.ogr",input=targetPointsPath,output="lakeStream",flags="o")
+execGRASS("v.in.ogr",input=targetPointsPath,output="targetPoints",flags="o")
+execGRASS("r.stream.snap",input="targetPoints",output="targetPoints_snap",stream_rast="streams",accumulation="uaa",threshold=10000,radius=25)
+
 targetPoints=readVECT("targetPoints")@data
 
 whichLakesAreLoIs=function(allLakes){
