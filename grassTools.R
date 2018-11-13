@@ -1,21 +1,22 @@
 #grass tools
 #utility for getting attribute tables from grass to a R data frame type
 grassTableToDF=function(grassDF){
-  grassNames=grassDF[1]
-  grassNames=unlist(strsplit(grassNames,'[|]'))
-  first=TRUE
-  for(c in 1:length(grassNames)){
-    thisName=grassNames[c]
-    thisData=sapply(sapply(grassDF[-1],strsplit,split='[|]'),'[',i=c)
-    if(!first){
-      rDF$tempName=thisData
-    }
-    if(first){
-      rDF=data.frame(tempName=thisData,row.names = NULL, stringsAsFactors = F)
-      first=FALSE
-    } 
-    names(rDF)[names(rDF)=="tempName"]=thisName
-  }
+  # grassNames=grassDF[1]
+  # grassNames=unlist(strsplit(grassNames,'[|]'))
+  # first=TRUE
+  # for(c in 1:length(grassNames)){
+  #   thisName=grassNames[c]
+  #   thisData=sapply(sapply(grassDF[-1],strsplit,split='[|]'),'[',i=c)
+  #   if(!first){
+  #     rDF$tempName=thisData
+  #   }
+  #   if(first){
+  #     rDF=data.frame(tempName=thisData,row.names = NULL, stringsAsFactors = F)
+  #     first=FALSE
+  #   } 
+  #   names(rDF)[names(rDF)=="tempName"]=thisName
+  # }
+  rDF=read.table(text=grassDF,header=T,sep="|",stringsAsFactors = F)
   return(rDF)
 }
 
